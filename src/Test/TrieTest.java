@@ -27,6 +27,20 @@ class TrieTest {
 
     @Test
     void delete() {
+        Trie prefixTree;
+        prefixTree = new Trie();
+        prefixTree.insert("GOING");
+        prefixTree.insert("GONG");
+        prefixTree.insert("PAKISTAN");
+        prefixTree.insert("SHANGHAI");
+        prefixTree.insert("GONDAL");
+        prefixTree.insert("GODAY");
+        prefixTree.insert("GODZILLA");
+        prefixTree.delete("PAKISTAN");
+        prefixTree.delete("GODAY");
 
+        assertFalse("GODAY", prefixTree.search("GODAY"));
+        assertFalse("PAKISTAN", prefixTree.search("PAKISTAN"));
+        assertTrue("GONG", prefixTree.search("GONG"));
     }
 }

@@ -37,7 +37,6 @@ public class Trie {
         crntparent = root;
 
 
-
         for (int i = 0; i < word.length(); i++) {
             char c = word.charAt(i);
 
@@ -88,58 +87,17 @@ public class Trie {
         words.clear();
         return t;
     }
-
-
-
-    void wordsFinderTraversal(TrieNode node, int offset) {
-
-
-        if (node.isLeaf) {
-
-
-            TrieNode altair;
-            altair = node;
-
-            Stack<String> hstack = new Stack<String>();
-
-            while (altair != prefixRoot) {
-
-                hstack.push(Character.toString(altair.c));
-                altair = altair.parent;
-            }
-
-            StringBuilder wrd = new StringBuilder(curPrefix);
-
-            while (!hstack.empty()) {
-                wrd.append(hstack.pop());
-            }
-
-
-            words.add(wrd.toString());
-
-        }
-
-        Set<Character> kset = node.children.keySet();
-
-        Iterator itr = kset.iterator();
-        ArrayList<Character> aloc = new ArrayList<Character>();
-
-        while (itr.hasNext()) {
-            Character ch = (Character) itr.next();
-            aloc.add(ch);
-
-        }
-
-
-
-        for (Character anAloc : aloc) {
-            wordsFinderTraversal(node.children.get(anAloc), offset + 2);
-        }
-
-    }
-
     public void delete(String word) {
+        TrieNode node = searchNode(word);
+        char character = word.charAt(0);
+        int index = 0;
 
+        while (node.children.isEmpty()) {
+            TrieNode parent = node.parent;
+            parent.children.remove(node.c);
+        }
     }
-
 }
+
+
+
