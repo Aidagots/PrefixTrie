@@ -84,7 +84,7 @@ public class Trie {
     }
 
 
-    public ArrayList<String> wordsFinderTraversal(TrieNode node, int offset) {
+    private ArrayList<String> wordsFinderTraversal(TrieNode node, int offset) {
 
 
         if (node.isLeaf) {
