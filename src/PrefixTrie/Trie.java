@@ -3,7 +3,6 @@ package PrefixTrie;
 import java.util.*;
 
 public class Trie {
-
     class TrieNode {
         char c;
         TrieNode parent;
@@ -59,15 +58,11 @@ public class Trie {
     }
 
 
-    public boolean search(String word) {
+    public boolean contains(String word) {
         TrieNode t = searchNode(word);
         return t != null && t.isLeaf;
     }
 
-
-    public boolean startsWith(String prefix) {
-        return searchNode(prefix) != null;
-    }
 
     TrieNode searchNode(String str) {
         Map<Character, TrieNode> children = root.children;
@@ -87,6 +82,59 @@ public class Trie {
         words.clear();
         return t;
     }
+
+
+    public ArrayList<String> wordsFinderTraversal(TrieNode node, int offset) {
+
+
+        if (node.isLeaf) {
+
+            TrieNode altair;
+            altair = node;
+
+            Stack<String> hstack = new Stack<String>();
+
+            while (altair != prefixRoot) {
+
+                hstack.push(Character.toString(altair.c));
+                altair = altair.parent;
+            }
+
+            StringBuilder wrd = new StringBuilder(curPrefix);
+
+            while (!hstack.empty()) {
+                wrd.append(hstack.pop());
+            }
+
+
+            words.add(wrd.toString());
+
+        }
+
+        Set<Character> kset = node.children.keySet();
+
+        Iterator itr = kset.iterator();
+        ArrayList<Character> aloc = new ArrayList<Character>();
+
+        while (itr.hasNext()) {
+            Character ch = (Character) itr.next();
+            aloc.add(ch);
+
+        }
+
+
+        for (Character anAloc : aloc) {
+            wordsFinderTraversal(node.children.get(anAloc), offset + 2);
+        }
+
+        return words;
+    }
+
+    public ArrayList<String> wordsFinderTraversal(String str) {
+        TrieNode t = searchNode(str);
+        return wordsFinderTraversal(t, 0);
+    }
+
     public void delete(String word) {
         TrieNode node = searchNode(word);
         char character = word.charAt(0);
@@ -95,9 +143,7 @@ public class Trie {
         while (node.children.isEmpty()) {
             TrieNode parent = node.parent;
             parent.children.remove(node.c);
+            node = parent;
         }
     }
 }
-
-
-
