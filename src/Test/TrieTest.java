@@ -4,12 +4,14 @@ import PrefixTrie.Trie;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
 class TrieTest {
     @Test
-    void insert_search() {
+    public void insert_search() {
         Trie prefixTree;
 
         prefixTree = new Trie();
@@ -30,7 +32,7 @@ class TrieTest {
     }
 
     @Test
-    void delete() {
+    public void delete() {
         Trie prefixTree;
 
         prefixTree = new Trie();
@@ -60,10 +62,10 @@ class TrieTest {
     }
 
     @Test
-    void wordsFinderTraversal() {
+    public void wordsFinderTraversal() {
         Trie prefixTree;
 
-        ArrayList<String> list = new ArrayList<String>();
+        Set<String> list = new HashSet<>();
 
         list.add("GOA");
         list.add("GODAY");
@@ -72,11 +74,11 @@ class TrieTest {
         list.add("GONDAL");
         list.add("GONG");
 
-        ArrayList<String> list1 = new ArrayList<String>();
+        Set<String> list1 = new HashSet<>();
 
         list1.add("GONDAL");
 
-        ArrayList<String> list2 = new ArrayList<String>();
+        Set<String> list2 = new HashSet<>();
 
         list2.add("GAD");
         list2.add("GOA");
@@ -107,5 +109,4 @@ class TrieTest {
         assertEquals(list1, prefixTree.wordsFinderTraversal("GON"));
         assertEquals(list2, prefixTree.wordsFinderTraversal("G"));
     }
-
 }

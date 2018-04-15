@@ -6,7 +6,7 @@ public class Trie {
     class TrieNode {
         char c;
         TrieNode parent;
-        HashMap<Character, TrieNode> children = new HashMap<Character, TrieNode>();
+        Map<Character, TrieNode> children = new HashMap<>();
         boolean isLeaf;
 
         TrieNode() {
@@ -18,18 +18,18 @@ public class Trie {
     }
 
     TrieNode root;
-    private ArrayList<String> words;
+    private Set<String> words;
     private TrieNode prefixRoot;
     private String curPrefix;
 
     public Trie() {
         root = new TrieNode();
-        words = new ArrayList<String>();
+        words = new HashSet<>();
     }
 
 
     public void insert(String word) {
-        HashMap<Character, TrieNode> children = root.children;
+        Map<Character, TrieNode> children = root.children;
 
         TrieNode crntparent;
 
@@ -84,18 +84,14 @@ public class Trie {
     }
 
 
-    private ArrayList<String> wordsFinderTraversal(TrieNode node, int offset) {
-
-
+    private Set<String> wordsFinderTraversal(TrieNode node, int offset) {
         if (node.isLeaf) {
-
             TrieNode altair;
             altair = node;
 
-            Stack<String> hstack = new Stack<String>();
+            Stack<String> hstack = new Stack<>();
 
             while (altair != prefixRoot) {
-
                 hstack.push(Character.toString(altair.c));
                 altair = altair.parent;
             }
@@ -106,20 +102,17 @@ public class Trie {
                 wrd.append(hstack.pop());
             }
 
-
             words.add(wrd.toString());
-
         }
 
         Set<Character> kset = node.children.keySet();
 
         Iterator itr = kset.iterator();
-        ArrayList<Character> aloc = new ArrayList<Character>();
+        List<Character> aloc = new ArrayList<>();
 
         while (itr.hasNext()) {
             Character ch = (Character) itr.next();
             aloc.add(ch);
-
         }
 
 
@@ -130,7 +123,7 @@ public class Trie {
         return words;
     }
 
-    public ArrayList<String> wordsFinderTraversal(String str) {
+    public Set<String> wordsFinderTraversal(String str) {
         TrieNode t = searchNode(str);
         return wordsFinderTraversal(t, 0);
     }
